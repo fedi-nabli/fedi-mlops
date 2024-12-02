@@ -19,7 +19,7 @@ def validate_model(model, history, training_set, test_set):
   plt.legend(['train', 'val'], loc='upper left')
   plt.show()
 
-  result = model.evaluate_generator(test_set, steps=1)
+  result = model.evaluate(test_set, steps=1)
   print("Test-set classification accuracy: {0:.2%}".format(result[1]))
-  result = model.evaluate_generator(training_set, steps=1)
+  result = model.evaluate(training_set, steps=1)
   print("Train-set classification accuracy: {0:.2%}".format(result[0]))

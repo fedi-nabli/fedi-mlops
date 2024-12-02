@@ -3,8 +3,8 @@ import keras
 from tensorflow.keras.utils import load_img
 import matplotlib.pyplot as plt
 
-def test_model(model, class_names):
-  test_image = load_img('base_melanome_CNN/cas.jpg', target_size = (124,124))
+def test_model(model, class_names, path):
+  test_image = load_img(f'{path}/cas.jpg', target_size = (124,124))
   plt.imshow(test_image, interpolation = 'spline16')
   plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
   plt.show()
