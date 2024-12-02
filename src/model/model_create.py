@@ -35,3 +35,6 @@ def create_model(num_classes):
   model.summary()
   
   return model
+
+if __name__ == '__main__':
+  create_model()

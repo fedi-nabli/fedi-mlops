@@ -1,0 +1,13 @@
+data_path: data
+training_set_path: /training_set
+test_set_path: /test_set
+case_path: /cas.jpg
+epochs: 10
+optimizer: adam
+rescale: 255
+shear_range: 0.2
+zoom_range: 0.2
+horizontal_flip: True
+target_size: 124
+batch_size: 16
+loss: categorical_crossentropy

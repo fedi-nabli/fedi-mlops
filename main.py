@@ -5,15 +5,15 @@ from src.model.model_validate import validate_model
 from src.test.model_test import test_model
 
 def main():
-  training_set, test_set = load_data('./data')
+  training_set, test_set = load_data('./')
   num_classes = training_set.num_classes
   class_names = list(training_set.class_indices.keys())
   print(num_classes , class_names)
 
   model = create_model(num_classes)
-  history = train_model(model, training_set, test_set)
+  history = train_model('./', model, training_set, test_set)
   validate_model(model, history, training_set, test_set)
-  test_model(model, class_names, './data')
+  test_model(model, class_names, './')
 
 if __name__ =='__main__':
   main()

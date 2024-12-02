@@ -1,26 +1,35 @@
+import os
+import yaml
+
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-def data_generator():
-  train_datagen = ImageDataGenerator(rescale = 1./255,
-                                   shear_range = 0.2,
-                                   zoom_range = 0.2,
-                                   horizontal_flip = True)
+def data_generator(config):
+  train_datagen = ImageDataGenerator(rescale = 1./config['rescale'],
+                                   shear_range = float(config['shear_range']),
+                                   zoom_range = float(config['zoom_range']),
+                                   horizontal_flip = bool(config['horizontal_flip']))
 
-  test_datagen = ImageDataGenerator(rescale = 1./255)
+  test_datagen = ImageDataGenerator(rescale = config['rescale'])
 
   return train_datagen, test_datagen
 
 def load_data(path):
-  train_datagen, test_datagen = data_generator()
+  with open(f'{path}/config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
 
-  training_set = train_datagen.flow_from_directory(f'{path}/training_set',
-                                                  target_size = (124, 124),
-                                                  batch_size = 16,
+  train_datagen, test_datagen = data_generator(config)
+
+  training_set = train_datagen.flow_from_directory(f'{path}/{config['data_path']}/{config['training_set_path']}',
+                                                  target_size = (config['target_size'], config['target_size']),
+                                                  batch_size = int(config['batch_size']),
                                                   class_mode = 'categorical')
 
-  test_set = test_datagen.flow_from_directory(f'{path}/test_set',
-                                                  target_size = (124, 124),
-                                                  batch_size = 16,
+  test_set = test_datagen.flow_from_directory(f'{path}/{config['data_path']}/{config['test_set_path']}',
+                                                  target_size = (config['target_size'], config['target_size']),
+                                                  batch_size = int(config['batch_size']),
                                                   class_mode = 'categorical')
 
   return training_set, test_set
+
+if __name__ == '__main__':
+  load_data('../../')
