@@ -1,33 +1,30 @@
 import os
 import yaml
 
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-
-def data_generator(config):
-  train_datagen = ImageDataGenerator(rescale = 1./config['rescale'],
-                                   shear_range = float(config['shear_range']),
-                                   zoom_range = float(config['zoom_range']),
-                                   horizontal_flip = bool(config['horizontal_flip']))
-
-  test_datagen = ImageDataGenerator(rescale = config['rescale'])
-
-  return train_datagen, test_datagen
-
-def load_data(path):
+def load_data(path, train_datagen, test_datagen):
   with open(f'{path}/config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
-  train_datagen, test_datagen = data_generator(config)
-
+  data_gen_path = f'{path}/{config['data_gen_path']}'
+  os.makedirs(data_gen_path, exist_ok=True)
+  os.makedirs(f'{data_gen_path}/training', exist_ok=True)
+  os.makedirs(f'{data_gen_path}/test', exist_ok=True)
+  
   training_set = train_datagen.flow_from_directory(f'{path}/{config['data_path']}/{config['training_set_path']}',
                                                   target_size = (config['target_size'], config['target_size']),
                                                   batch_size = int(config['batch_size']),
-                                                  class_mode = 'categorical')
+                                                  class_mode = 'categorical',
+                                                  save_to_dir=f'{path}/{config['data_gen_path']}/train',
+                                                  save_prefix='aug',
+                                                  save_format='jpeg')
 
   test_set = test_datagen.flow_from_directory(f'{path}/{config['data_path']}/{config['test_set_path']}',
                                                   target_size = (config['target_size'], config['target_size']),
                                                   batch_size = int(config['batch_size']),
-                                                  class_mode = 'categorical')
+                                                  class_mode = 'categorical',
+                                                  save_to_dir=f'{path}/{config['data_gen_path']}/test',
+                                                  save_prefix='aug',
+                                                  save_format='jpeg')
 
   return training_set, test_set
 
