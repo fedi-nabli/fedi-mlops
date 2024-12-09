@@ -1,3 +1,5 @@
+import yaml
+
 import keras
 from keras.models import Sequential
 from keras.layers import Conv2D
@@ -9,10 +11,13 @@ from keras.metrics import categorical_crossentropy
 from keras.preprocessing import image
 from tensorflow.keras.utils import load_img
 
-def create_model(num_classes):
+def create_model(path, num_classes):
+  with open(f'{path}/config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
+
   model = Sequential()
 
-  model.add(Conv2D(32, (3, 3), input_shape = (124, 124, 3), activation = 'relu'))
+  model.add(Conv2D(32, (3, 3), input_shape = (config['target_size'], config['target_size'], 3), activation = 'relu'))
   model.add(MaxPooling2D(pool_size = (2, 2)))
 
   model.add(Conv2D(32, (3, 3), activation = 'relu'))

@@ -10,7 +10,7 @@ def test_model(model, class_names, path):
   
   for image in os.listdir(f'{path}/{config['data_path']}{config['test_folder']}'):
     img = f'{path}/{config['data_path']}{config['test_folder']}/{image}'
-    test_image = load_img(img, target_size = (124,124))
+    test_image = load_img(img, target_size = (config['target_size'],config['target_size']))
     plt.imshow(test_image, interpolation = 'spline16')
     plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
     plt.show()
