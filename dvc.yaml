@@ -1,0 +1,35 @@
+stages:
+  1-data_generation:
+    cmd: python3 src/data/data_preparation.py
+    deps:
+      - src/data/data_generation.py
+      - src/data/data_preparation.py
+      - data_original
+      - config.yaml
+
+  1-data_update:
+    cmd: python3 src/data/data_update.py
+    deps:
+      - src/data/data_update.py
+      - config.yaml
+
+  # 2-train:
+  #   cmd: python3 src/model/model_train.py
+  #   deps:
+  #     - src/model/model_train.py
+  #     - data
+  #     - config.yaml
+
+  # 3-model_validate:
+  #   cmd: python3 src/model/model_validate.py
+  #   deps:
+  #     - src/model/model_validate.py
+  #     - data
+  #     - config.yaml
+
+  # 4-test:
+  #   cmd: python3 src/test/model_test.py
+  #   deps:
+  #     - src/test/model_test.py
+  #     - data
+  #     - config.yaml

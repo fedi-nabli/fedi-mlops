@@ -1,0 +1,33 @@
+schema: '2.0'
+stages:
+  1-data_generation:
+    cmd: python3 src/data/data_preparation.py
+    deps:
+    - path: config.yaml
+      hash: md5
+      md5: 4aff25118529c870468ec9c99844ea44
+      size: 355
+    - path: data_original
+      hash: md5
+      md5: 3172563d0ffb6e9c986010b74bb7ee51.dir
+      size: 216750224
+      nfiles: 593
+    - path: src/data/data_generation.py
+      hash: md5
+      md5: 1a7c7ea1270da3f243eb0f2aa4b9f4b1
+      size: 605
+    - path: src/data/data_preparation.py
+      hash: md5
+      md5: 6f82f76a5de97d0b3ecee1afbdc25ac1
+      size: 1887
+  1-data_update:
+    cmd: python3 src/data/data_update.py
+    deps:
+    - path: config.yaml
+      hash: md5
+      md5: c010bacabea0c7670a56076ab545d8cc
+      size: 355
+    - path: src/data/data_update.py
+      hash: md5
+      md5: 3631a7f40b0b5da6f82463c65cdceae5
+      size: 692

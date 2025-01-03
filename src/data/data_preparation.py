@@ -31,4 +31,7 @@ def load_data(path, train_datagen, test_datagen):
   return training_set, test_set
 
 if __name__ == '__main__':
-  load_data('../../')
+  from data_generation import generate_data
+
+  train_datagen, test_datagen = generate_data('.')
+  load_data('.', train_datagen, test_datagen)

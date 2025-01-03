@@ -1,0 +1,5 @@
+[core]
+    remote = malinbelin
+['remote "malinbelin"']
+    url = gdrive://17jFfjNMEYCXfryI-6Y-5ISVyCVzkEWbK
+    gdrive_acknowledge_abuse = true
